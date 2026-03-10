@@ -1,6 +1,11 @@
 # Construction Project Control Dashboard
 
-A data-driven dashboard designed to monitor and control construction projects. The platform provides real-time insights into project performance, including schedule tracking, cost control, risk alerts and key performance indicators.
+![Next.js](https://img.shields.io/badge/Next.js-Framework-black)
+![Supabase](https://img.shields.io/badge/Supabase-Database-green)
+![TypeScript](https://img.shields.io/badge/TypeScript-Language-blue)
+![License](https://img.shields.io/badge/license-MIT-blue)
+
+A modern data-driven dashboard designed to monitor, analyze and control construction projects through real-time progress tracking, financial monitoring and performance indicators.
 
 This project simulates a professional **project control environment used in engineering and construction management**, supporting decision-making through visual analytics and project KPIs.
 
@@ -45,6 +50,24 @@ The application consolidates project data and presents key insights through inte
 
 ---
 
+## Architecture
+
+The application follows a modern web architecture.
+
+Frontend  
+Next.js + React
+
+Backend / Database  
+Supabase
+
+Visualization  
+Recharts
+
+Deployment  
+Vercel
+
+---
+
 # Screenshots
 
 <img width="1919" height="1079" alt="Captura de tela 2026-03-09 194025" src="https://github.com/user-attachments/assets/01bb4725-bba7-4975-9b5e-51f66b0cb98b" />
@@ -74,7 +97,7 @@ Civil Engineer | Project Management | Data Analytics | Engineering Systems
 
 # Dashboard de Controle de Projetos de Construção
 
-Um dashboard orientado a dados desenvolvido para monitorar e controlar projetos de engenharia e construção. A plataforma fornece insights em tempo real sobre o desempenho dos projetos, incluindo acompanhamento de cronograma, controle de custos, alertas de risco e indicadores de performance.
+Um dashboard moderno orientado a dados desenvolvido para monitorar, analisar e controlar projetos de engenharia e construção através de acompanhamento de progresso em tempo real, monitoramento financeiro e indicadores de desempenho.
 
 Este projeto simula um **ambiente profissional de controle de projetos utilizado em engenharia e gestão de obras**, apoiando a tomada de decisão por meio de análise de dados e visualização de indicadores.
 
@@ -90,7 +113,7 @@ https://construction-project-control-dashbo.vercel.app
 
 Projetos de engenharia e construção exigem acompanhamento constante de **cronograma, custos e indicadores de desempenho**. Este sistema foi desenvolvido para demonstrar como dashboards analíticos podem auxiliar gestores e engenheiros a acompanhar o desempenho dos projetos e identificar riscos antecipadamente.
 
-A aplicação consolida dados de projetos e apresenta informações estratégicas através de dashboards interativos e indicadores de performance.
+A aplicação consolida dados de diferentes projetos e apresenta informações estratégicas através de dashboards interativos, gráficos e indicadores de desempenho que auxiliam no acompanhamento da execução e na identificação de riscos operacionais.
 
 ---
 
@@ -108,14 +131,32 @@ A aplicação consolida dados de projetos e apresenta informações estratégica
 
 ---
 
-# Tecnologias Utilizadas
+# Stack Tecnológico
 
 • Next.js  
 • React  
 • TypeScript  
 • Supabase  
 • Tailwind CSS  
-• Recharts  
+• Recharts   
+
+---
+
+## Arquitetura
+
+A aplicação segue uma arquitetura moderna de aplicações web.
+
+Frontend  
+Next.js + React
+
+Backend / Banco de Dados  
+Supabase
+
+Visualização de Dados  
+Recharts
+
+Deploy  
+Vercel
 
 ---
 
@@ -138,3 +179,15 @@ A aplicação consolida dados de projetos e apresenta informações estratégica
 Augusto Sampaio  
 
 Engenheiro Civil | Gestão de Projetos | Análise de Dados | Sistemas para Engenharia
+
+---
+
+## Objetivo do Projeto
+
+Este projeto foi desenvolvido como parte do portfólio profissional para demonstrar habilidades em:
+
+• Desenvolvimento de dashboards analíticos  
+• Engenharia de dados aplicada à gestão de projetos  
+• Visualização de indicadores de desempenho (KPIs)  
+• Integração entre frontend e banco de dados em tempo real  
+• Aplicação de conceitos de controle de projetos em engenharia
