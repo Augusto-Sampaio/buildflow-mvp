@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { 
   BarChart, 
   Bar, 
@@ -52,6 +53,17 @@ interface CategoryCostChartProps {
 }
 
 export function CategoryCostChart({ data }: CategoryCostChartProps) {
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => setIsMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!isMounted) {
+    return <div className="h-[300px] w-full" />;
+  }
+
   if (!data || data.length === 0) {
     return (
       <div className="h-[300px] w-full flex items-center justify-center bg-slate-50 rounded-lg border border-dashed border-slate-200">

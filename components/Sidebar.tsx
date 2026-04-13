@@ -19,6 +19,7 @@ import { cn } from '@/lib/utils';
 import { useAuth } from '@/hooks/use-auth';
 import { useState } from 'react';
 import { ProfileModal } from '@/components/ProfileModal';
+import { Logo } from '@/components/Logo';
 
 const menuItems = [
   { icon: LayoutDashboard, label: 'Visão Geral', href: '/dashboard' },
@@ -59,36 +60,20 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         "fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col h-screen transition-transform duration-300 lg:sticky lg:translate-x-0",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 bg-[#1e3b8a] rounded-lg flex items-center justify-center overflow-hidden shadow-sm relative">
-                <Image 
-                  src="https://ais-pre-727hgy4p6ql2oh4h4exeql-368926696819.us-east1.run.app/logo-aa.png" 
-                  alt="A&A Logo" 
-                  fill
-                  className="object-cover"
-                  referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "https://picsum.photos/seed/aa-logo/100/100";
-                  }}
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-slate-900 font-bold text-sm tracking-tight uppercase leading-tight">A&A ENGENHARIA</span>
-                <span className="text-slate-500 font-normal text-[10px] opacity-70 tracking-wide uppercase">E PROJETOS</span>
-              </div>
+        <div className="pt-8 px-4 pb-4">
+          <div className="flex items-center justify-between mb-10">
+            <div className="flex items-center w-full">
+              <Logo className="h-24 w-full" />
             </div>
             <button 
               onClick={onClose}
-              className="lg:hidden p-2 text-slate-400 hover:text-slate-600"
+              className="lg:hidden p-2 text-slate-400 hover:text-slate-600 ml-2"
             >
               <X size={20} />
             </button>
           </div>
 
-          <nav className="space-y-1">
+          <nav className="space-y-1 px-2">
             {menuItems.map((item) => (
               <Link
                 key={item.href}

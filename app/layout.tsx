@@ -5,8 +5,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'A&A Engenharia - Gestão de Obras',
-  description: 'Sistema de Planejamento e Controle de Projetos',
+  title: 'BuildFlow - Gestão de Obras',
+  description: 'Sistema de Planejamento e Controle de Projetos e Obras',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

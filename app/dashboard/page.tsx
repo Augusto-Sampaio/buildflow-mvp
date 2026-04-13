@@ -10,7 +10,7 @@ import { CategoryCostChart } from '@/components/CategoryCostChart';
 import { IssuesChart } from '@/components/IssuesChart';
 import { AlertsPanel, Alert } from '@/components/AlertsPanel';
 import { useAuth } from '@/hooks/use-auth';
-import { Loader2, ChevronDown, Calendar, Clock } from 'lucide-react';
+import { Loader2, ChevronDown, Calendar, Clock, Plus } from 'lucide-react';
 import { cn, pct, formatCurrency, formatCurrencyFull } from '@/lib/utils';
 import Link from 'next/link';
 import { Skeleton } from '@/components/Skeleton';

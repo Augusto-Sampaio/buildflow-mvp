@@ -88,9 +88,9 @@ export default function ProjectsPage() {
   }
 
   const headerActions = (
-    <button className="flex items-center gap-2 px-4 py-2 bg-[#1e3b8a] text-white text-xs font-bold rounded-lg hover:bg-[#1e3b8a]/90 transition-colors shadow-lg shadow-[#1e3b8a]/20">
+    <Link href="/new-project" className="flex items-center gap-2 px-4 py-2 bg-[#1e3b8a] text-white text-xs font-bold rounded-lg hover:bg-[#1e3b8a]/90 transition-colors shadow-lg shadow-[#1e3b8a]/20">
       <Plus size={16} /> <span className="hidden sm:inline">Novo Projeto</span>
-    </button>
+    </Link>
   );
 
   return (

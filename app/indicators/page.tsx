@@ -16,9 +16,15 @@ const safeNum = (v: any) => {
 
 export default function IndicatorsPage() {
   const { user } = useAuth();
+  const [isMounted, setIsMounted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<any[]>([]);
   const [averages, setAverages] = useState({ spi: 0, cpi: 0 });
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (!user) return;
@@ -143,56 +149,58 @@ export default function IndicatorsPage() {
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
             <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-6">Matriz de Performance (SPI vs CPI)</h3>
             <div className="h-[400px] w-full min-h-[400px]">
-              <ResponsiveContainer width="100%" height="100%" minWidth={0}>
-                <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                  <XAxis 
-                    type="number" 
-                    dataKey="spi" 
-                    name="SPI" 
-                    domain={[0.5, 1.5]} 
-                    label={{ value: 'SPI (Prazo)', position: 'bottom', offset: 0 }}
-                    stroke="#94a3b8"
-                    fontSize={12}
-                  />
-                  <YAxis 
-                    type="number" 
-                    dataKey="cpi" 
-                    name="CPI" 
-                    domain={[0.5, 1.5]} 
-                    label={{ value: 'CPI (Custo)', angle: -90, position: 'left' }}
-                    stroke="#94a3b8"
-                    fontSize={12}
-                  />
-                  <ZAxis type="number" dataKey="budget" range={[50, 400]} />
-                  <Tooltip 
-                    cursor={{ strokeDasharray: '3 3' }}
-                    content={({ active, payload }) => {
-                      if (active && payload && payload.length) {
-                        const data = payload[0].payload;
-                        return (
-                          <div className="bg-white p-3 border border-slate-200 shadow-xl rounded-lg">
-                            <p className="font-bold text-slate-900 mb-1">{data.name}</p>
-                            <p className="text-xs text-slate-500">SPI: <span className="font-mono font-bold text-slate-900">{data.spi.toFixed(2)}</span></p>
-                            <p className="text-xs text-slate-500">CPI: <span className="font-mono font-bold text-slate-900">{data.cpi.toFixed(2)}</span></p>
-                          </div>
-                        );
-                      }
-                      return null;
-                    }}
-                  />
-                  <ReferenceLine x={1} stroke="#cbd5e1" strokeWidth={2} />
-                  <ReferenceLine y={1} stroke="#cbd5e1" strokeWidth={2} />
-                  <Scatter name="Projetos" data={data}>
-                    {data.map((entry, index) => (
-                      <Cell 
-                        key={`cell-${index}`} 
-                        fill={entry.spi >= 1 && entry.cpi >= 1 ? '#10b981' : entry.spi < 0.9 || entry.cpi < 0.9 ? '#ef4444' : '#f59e0b'} 
-                      />
-                    ))}
-                  </Scatter>
-                </ScatterChart>
-              </ResponsiveContainer>
+              {isMounted && (
+                <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                  <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                    <XAxis 
+                      type="number" 
+                      dataKey="spi" 
+                      name="SPI" 
+                      domain={[0.5, 1.5]} 
+                      label={{ value: 'SPI (Prazo)', position: 'bottom', offset: 0 }}
+                      stroke="#94a3b8"
+                      fontSize={12}
+                    />
+                    <YAxis 
+                      type="number" 
+                      dataKey="cpi" 
+                      name="CPI" 
+                      domain={[0.5, 1.5]} 
+                      label={{ value: 'CPI (Custo)', angle: -90, position: 'left' }}
+                      stroke="#94a3b8"
+                      fontSize={12}
+                    />
+                    <ZAxis type="number" dataKey="budget" range={[50, 400]} />
+                    <Tooltip 
+                      cursor={{ strokeDasharray: '3 3' }}
+                      content={({ active, payload }) => {
+                        if (active && payload && payload.length) {
+                          const data = payload[0].payload;
+                          return (
+                            <div className="bg-white p-3 border border-slate-200 shadow-xl rounded-lg">
+                              <p className="font-bold text-slate-900 mb-1">{data.name}</p>
+                              <p className="text-xs text-slate-500">SPI: <span className="font-mono font-bold text-slate-900">{data.spi.toFixed(2)}</span></p>
+                              <p className="text-xs text-slate-500">CPI: <span className="font-mono font-bold text-slate-900">{data.cpi.toFixed(2)}</span></p>
+                            </div>
+                          );
+                        }
+                        return null;
+                      }}
+                    />
+                    <ReferenceLine x={1} stroke="#cbd5e1" strokeWidth={2} />
+                    <ReferenceLine y={1} stroke="#cbd5e1" strokeWidth={2} />
+                    <Scatter name="Projetos" data={data}>
+                      {data.map((entry, index) => (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={entry.spi >= 1 && entry.cpi >= 1 ? '#10b981' : entry.spi < 0.9 || entry.cpi < 0.9 ? '#ef4444' : '#f59e0b'} 
+                        />
+                      ))}
+                    </Scatter>
+                  </ScatterChart>
+                </ResponsiveContainer>
+              )}
             </div>
             <div className="mt-4 flex justify-center gap-6 text-[10px] uppercase tracking-widest font-bold text-slate-400">
               <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-500"></div> Saudável</div>

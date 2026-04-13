@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
-import { Lock, Loader2, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
+import { Lock, Loader2, Eye, EyeOff, CheckCircle2, ArrowLeft } from 'lucide-react';
 import { motion } from 'motion/react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function UpdatePasswordPage() {
   const [password, setPassword] = useState('');
@@ -69,17 +71,29 @@ export default function UpdatePasswordPage() {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-[500px] bg-white rounded-xl shadow-2xl p-8 md:p-12"
+        className="w-full max-w-[500px] bg-white rounded-xl shadow-2xl p-8 md:p-12 relative"
       >
+        <button 
+          onClick={() => {
+            console.log('Back button clicked');
+            window.location.href = '/';
+          }}
+          className="absolute top-6 left-8 text-slate-400 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm font-bold group z-[999] cursor-pointer pointer-events-auto"
+          type="button"
+        >
+          <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+          Voltar
+        </button>
         <div className="mb-10 flex flex-col items-center">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="h-12 w-12 bg-[#1e3b8a] rounded-lg flex items-center justify-center text-white">
-              <Lock size={24} />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[#1e3b8a] font-bold text-xl tracking-tight uppercase leading-tight">A&A</span>
-              <span className="text-[#1e3b8a] font-normal text-xs opacity-70 tracking-wide uppercase">ENGENHARIA E PROJETOS</span>
-            </div>
+          <div className="mb-10 flex justify-center">
+            <Image
+              src="https://i.imgur.com/RcGMnHJ.png"
+              alt="BuildFlow - Gestão de Obras"
+              width={280}
+              height={80}
+              priority
+              className="h-auto w-[220px] md:w-[280px]"
+            />
           </div>
           <h1 className="text-slate-900 text-2xl font-bold tracking-tight text-center">Nova Senha</h1>
           <p className="text-slate-500 mt-2 text-center">Defina sua nova senha de acesso</p>
@@ -170,7 +184,7 @@ export default function UpdatePasswordPage() {
 
         <div className="mt-10 pt-6 border-t border-slate-100">
           <p className="text-slate-400 text-[10px] text-center uppercase tracking-widest">
-            © 2026 A&A Engenharia e Projetos
+            © 2026 BuildFlow - Sistema de Gestão e Controle de Obras.
           </p>
         </div>
       </motion.div>

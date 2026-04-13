@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
-import { LogIn, Mail, Lock, Loader2, Eye, EyeOff, UserCircle, UserPlus } from 'lucide-react';
+import { LogIn, Mail, Lock, Loader2, Eye, EyeOff, UserPlus, ArrowLeft } from 'lucide-react';
 import { motion } from 'motion/react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -35,39 +36,6 @@ export default function LoginPage() {
       router.push('/dashboard');
     } catch (err: any) {
       setError(err.message || 'Erro ao entrar. Verifique suas credenciais.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGuestLogin = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      // Tenta entrar anonimamente (Modo Convidado oficial do Supabase)
-      const { data, error: authError } = await supabase.auth.signInAnonymously({
-        options: {
-          data: {
-            full_name: 'Convidado',
-          }
-        }
-      });
-
-      if (authError) {
-        // Se der erro, provavelmente a opção não está ativa no painel
-        if (authError.message.includes('Anonymous sign-ins are disabled')) {
-          setError('O Login Anônimo está desativado. Ative-o no painel do Supabase (Authentication -> Settings -> Allow Anonymous Sign-ins) para permitir o acesso de convidados.');
-        } else {
-          throw authError;
-        }
-        return;
-      }
-
-      router.push('/dashboard');
-    } catch (err: any) {
-      setError('Erro ao acessar como convidado. Verifique as configurações de Login Anônimo no seu Supabase.');
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -105,38 +73,37 @@ export default function LoginPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent z-20"></div>
           <div 
             className="h-full w-full bg-cover bg-center" 
-            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop')" }}
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?q=80&w=2070&auto=format&fit=crop')" }}
           ></div>
           <div className="absolute bottom-12 left-12 z-30 text-white max-w-md">
-            <h2 className="text-4xl font-bold mb-3 tracking-tight">Planejamento & Controle</h2>
+            <h2 className="text-4xl font-bold mb-3 tracking-tight">Gestão & Controle</h2>
             <p className="text-slate-100 text-xl font-light leading-relaxed">Gerencie suas obras com precisão e eficiência tecnológica.</p>
           </div>
         </div>
 
         {/* Right Side: Form */}
-        <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-white">
-          <div className="mb-12 flex flex-col items-center md:items-start">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="h-16 w-16 bg-[#1e3b8a] rounded-2xl flex items-center justify-center overflow-hidden shadow-lg shadow-[#1e3b8a]/20">
-                <Image 
-                  src="https://ais-pre-727hgy4p6ql2oh4h4exeql-368926696819.us-east1.run.app/logo-aa.png" 
-                  alt="A&A Logo" 
-                  width={64} 
-                  height={64}
-                  className="object-cover"
-                  referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    // Fallback if image not found
-                    const target = e.target as HTMLImageElement;
-                    target.src = "https://picsum.photos/seed/aa-logo/200/200";
-                  }}
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-slate-900 font-black text-2xl tracking-tighter uppercase leading-none">A&A</span>
-                <span className="text-slate-500 font-medium text-[10px] opacity-60 tracking-[0.2em] uppercase mt-1">ENGENHARIA E PROJETOS</span>
-              </div>
-            </div>
+        <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-white relative">
+          <button 
+            onClick={() => {
+              router.push('/');
+            }}
+            className="absolute top-6 left-8 md:top-10 md:left-16 text-slate-400 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm font-bold group z-[999] cursor-pointer pointer-events-auto"
+            type="button"
+          >
+            <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+            Voltar para o início
+          </button>
+          <div className="mb-12 flex justify-center md:justify-start">
+            <Image
+              src="https://i.imgur.com/RcGMnHJ.png"
+              alt="BuildFlow - Gestão de Obras"
+              width={280}
+              height={80}
+              priority
+              className="h-auto w-[220px] md:w-[280px]"
+            />
+          </div>
+          <div className="mb-10 flex flex-col items-center md:items-start">
             <h1 className="text-slate-900 text-4xl font-black tracking-tight mb-2">
               {view === 'login' ? 'Acesso ao Sistema' : 'Recuperar Senha'}
             </h1>
@@ -214,20 +181,10 @@ export default function LoginPage() {
                       </>
                     )}
                   </button>
-
-                  <button
-                    type="button"
-                    onClick={handleGuestLogin}
-                    disabled={loading}
-                    className="w-full bg-white border-2 border-slate-200 hover:border-slate-900 hover:bg-slate-50 text-slate-700 font-bold py-4 px-6 rounded-xl transition-all flex items-center justify-center gap-3 disabled:opacity-70 active:scale-[0.98]"
-                  >
-                    <UserCircle size={22} />
-                    <span className="text-lg">Entrar como Convidado</span>
-                  </button>
                 </div>
               </form>
 
-              <div className="text-center pt-2">
+              <div className="text-center pt-2 flex flex-col gap-4">
                 <button 
                   type="button" 
                   onClick={() => setView('forgot-password')}
@@ -235,6 +192,15 @@ export default function LoginPage() {
                 >
                   Esqueci minha senha
                 </button>
+                <p className="text-slate-500 text-sm font-medium">
+                  Não tem uma conta?{' '}
+                  <Link 
+                    href="/cadastro"
+                    className="text-slate-900 font-bold hover:underline underline-offset-4 decoration-2 decoration-slate-200 hover:decoration-slate-900 transition-colors"
+                  >
+                    Criar conta agora
+                  </Link>
+                </p>
               </div>
             </div>
           ) : (
@@ -308,7 +274,7 @@ export default function LoginPage() {
 
           <div className="mt-auto pt-10 border-t border-slate-100 mt-12">
             <p className="text-slate-400 text-[10px] text-center uppercase tracking-widest leading-relaxed">
-              © 2024 A&A Engenharia e Projetos - Sistema de Planejamento e Controle de Obras.<br />
+              © 2026 BuildFlow - Sistema de Gestão e Controle de Obras.<br />
               Todos os direitos reservados.
             </p>
           </div>
